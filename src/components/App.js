@@ -49,7 +49,9 @@ function App() {
 
       // Set provider for Mumbai Testnet
       //const polProvider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com')
-      const polProvider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_MUMBAI_HTTPS)
+      //const polProvider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com/v1/<API_KEY>')
+      const polProvider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.g.alchemy.com/v2/${process.env.REACT_APP_ALCHEMY_API_KEY}`)
+      console.log(polProvider)
       setPolProvider(polProvider)
 
       // Set signer
@@ -69,7 +71,9 @@ function App() {
       setPolProvider(polProvider)
 
       // Set provider for Goerli Testnet
-      const ethProvider = new ethers.providers.JsonRpcProvider(process.env.INFURA_GOERLI_HTTPS)
+      //const ethProvider = new ethers.providers.JsonRpcProvider(process.env.INFURA_GOERLI_HTTPS)
+      const ethProvider = new ethers.providers.JsonRpcProvider(`https://goerli.infura.io/v3/${process.env.REACT_APP_INFURA_API_KEY}`)
+      console.log(ethProvider)
       setEthProvider(ethProvider)
 
       // Set signer
@@ -136,7 +140,7 @@ function App() {
       // If networkId === 5 (Goerli), listen to transfer events from the ETHBridge, then make a call to BSCBridge
       if (networkId === '5') {
         ethBridge.on('Transfer', async (from, to, amount, date, nonce, signature, step) => {
-          const polWallet = new ethers.Wallet(process.env.PRIVATE_KEY)
+          const polWallet = new ethers.Wallet(process.env.REACT_APP_PRIVATE_KEY)
           const polSigner = polWallet.connect(polProvider)
           const bridge = polBridge.connect(polSigner)
 
@@ -151,7 +155,7 @@ function App() {
       // If networkId === 80001 (Mumbai), listen to transfer events from the BSCBridge, then make a call to ETHBridge
       if (networkId === '80001') {
         polBridge.on('Transfer', async (from, to, amount, date, nonce, signature, step) => {
-          const ethWallet = new ethers.Wallet(process.env.PRIVATE_KEY)
+          const ethWallet = new ethers.Wallet(process.env.REACT_APP_PRIVATE_KEY)
           const ethSigner = ethWallet.connect(ethProvider)
           const bridge = ethBridge.connect(ethSigner)
 
@@ -172,7 +176,7 @@ function App() {
       setPolBridge(polBridge)
 
       ethBridge.on('Transfer', async (from, to, amount, date, nonce, signature, step) => {
-        const polWallet = new ethers.Wallet(process.env.PRIVATE_KEY)
+        const polWallet = new ethers.Wallet(process.env.REACT_APP_PRIVATE_KEY)
         const polSigner = polWallet.connect(polProvider)
         const bridge = polBridge.connect(polSigner)
 
@@ -273,13 +277,13 @@ function App() {
       chainId = '0x13881'
     }
 
-    if (networkId === '4') { // Rinkeby
+    /* if (networkId === '4') { // Rinkeby
       chainId = '0x61'
     }
 
     if (networkId === '97') { // Binance Testnet
       chainId = '0x4'
-    }
+    } */
 
     await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
