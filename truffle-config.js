@@ -2,7 +2,8 @@ require('babel-register');
 require('babel-polyfill');
 require('dotenv').config();
 
-const HDWalletProvider = require('truffle-hdwallet-provider-privkey');
+//const HDWalletProvider = require('truffle-hdwallet-provider-privkey');
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 module.exports = {
 
@@ -13,16 +14,25 @@ module.exports = {
       network_id: "*",       // Any network (default: none)
     },
     goerli: {
-      provider: () => new HDWalletProvider(process.env.PRIVATE_KEY,
-        `https://goerli.infura.io/v3/${process.env.INFURA_PROJECT_ID}`),
-      network_id: 5,       // Goerli's id
-      //confirmations: 2,    // # of confirmations to wait between deployments. (default: 0)
-      //timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-      //skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+      provider: function () {
+        return new HDWalletProvider(
+          [process.env.PRIVATE_KEY],
+          process.env.INFURA_GOERLI_WSS // URL to Ethereum Node
+        )
+      },
+      gasPrice: 60000000000, // 60 Gwei
+      gas: 4000000,
+      network_id: 5
     },
     mumbai: {
-      provider: () => new HDWalletProvider(process.env.PRIVATE_KEY,
-        `https://polygon-mumbai.infura.io/v3/${process.env.INFURA_PROJECT_ID}`),
+      provider: function () {
+        return new HDWalletProvider(
+          [process.env.PRIVATE_KEY],
+          process.env.ALCHEMY_MUMBAI_WSS // URL to Ethereum Node
+        )
+      },
+      gasPrice: 60000000000, // 60 Gwei
+      gas: 4000000,
       network_id: 80001,       // Mumbai's id
       //confirmations: 2,    // # of confirmations to wait between deployments. (default: 0)
       //timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)

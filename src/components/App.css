@@ -1,38 +1,69 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Rubik:wght@400;700&display=swap');
+
+:root {
+    --clr-dark: #212529;
+    --clr-light: #D2F5FF;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html {
+    font-family: "Rubik" !important;
+    font-weight: 400;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+    background: var(--clr-light);
+
+    min-height: 100vh;
+
+    font-family: "Rubik";
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+main {
+    min-height: 100vh;
+    margin-top: 5vh;
 }
 
-.App-link {
-  color: #61dafb;
+.content {
+    justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1, h2 {
+    font-family: "Rubik";
+    font-weight: 700;
+
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    display: inline-block;
+    min-width: 150px;
+
+    margin: .5em auto;
+    padding: .5em 0;
+
+    background: #234E5A;
+    color: var(--clr-light);
+
+    border: 3px solid var(--clr-dark);
+    border-radius: .5em;
+
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700 !important;
+
+    cursor: pointer;
+
+    transition: all 250ms ease;
+}
+
+.button:hover {
+    background: var(--clr-light);
+    color: var(--clr-dark);
+}
+
+.logo {
+    max-width: 30px;
+    height: auto;
+    margin: 0 10px;
 }
